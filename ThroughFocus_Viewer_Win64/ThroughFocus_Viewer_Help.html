@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ThroughFocus_Viewer Help / 說明</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+:root{
+  --bg:#f5f6fa;--surface:#fff;--border:#eaecf0;--border2:#d0d5dd;
+  --text:#1a1a2e;--muted:#6c7284;--muted2:#b8bcc8;
+  --eth:#2f9e44;--ctrl:#7048e8;
+  --blue:#4361ee;--fn:'Inter',"Noto Sans TC","Microsoft JhengHei",-apple-system,sans-serif;--mono:'JetBrains Mono',"Cascadia Mono",Consolas,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-padding-top:12px}
+body{background:var(--bg);color:var(--text);font-family:var(--fn);height:100vh;display:flex;flex-direction:column;overflow:hidden;font-size:13px}
+header{background:var(--surface);border-bottom:1px solid var(--border2);padding:0 18px;height:50px;display:flex;align-items:center;gap:10px;flex-shrink:0;box-shadow:0 1px 3px rgba(0,0,0,.05);z-index:30}
+.logo{width:30px;height:30px;border-radius:9px;background:linear-gradient(135deg,#4361ee,#3b82f6);display:flex;align-items:center;justify-content:center;color:#fff;font-size:14px;font-weight:800}
+header h1{font-size:14px;font-weight:700;letter-spacing:-.01em}
+.badge{font-size:10px;font-weight:600;padding:3px 9px;border-radius:20px;background:var(--bg);border:1px solid var(--border2);color:var(--muted);white-space:nowrap}
+.badge.v{background:#eff3ff;border-color:#bac8ff;color:#4361ee}
+.hint{margin-left:auto;font-size:10.5px;color:var(--muted2)}
+.main{display:flex;flex:1;overflow:hidden}
+.sidebar{width:280px;background:var(--surface);border-right:1px solid var(--border2);overflow-y:auto;flex-shrink:0}
+.props-panel{padding:12px}
+.psec{font-size:10px;font-weight:700;color:var(--muted);margin:12px 0 6px;padding-bottom:4px;border-bottom:1px solid var(--border);text-transform:uppercase;letter-spacing:.4px}
+.psec:first-child{margin-top:0}
+.nav-link{display:block;padding:7px 10px;margin-bottom:4px;font-size:11.5px;font-weight:600;color:var(--muted);text-decoration:none;border:1.5px solid transparent;border-radius:9px;transition:.14s}
+.nav-link:hover,.nav-link:focus-visible{background:var(--bg);border-color:var(--border2);color:var(--blue);outline:none}
+.canvas-wrap{flex:1;overflow-y:auto;background-color:#f0f2f8;background-image:radial-gradient(#c8cee0 1px,transparent 1px);background-size:24px 24px;padding:24px 24px 72px}
+.sheet{max-width:920px;margin:0 auto;background:var(--surface);border:1.5px solid var(--border2);border-radius:13px;box-shadow:0 2px 8px rgba(0,0,0,.07)}
+.doc-content{padding:22px 30px 30px;font-size:12.5px;line-height:1.75;color:#495057}
+.doc-content .doc-title{font-size:18px;font-weight:700;color:var(--text);letter-spacing:-.01em;margin:4px 0 10px}
+.doc-content .lead{font-size:12.5px;color:var(--muted);margin-bottom:10px}
+.doc-content h2{font-size:14px;font-weight:700;color:var(--blue);margin:28px 0 12px;border-bottom:1.5px solid var(--border2);padding-bottom:8px;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.doc-content h3{font-size:12.5px;font-weight:700;color:var(--text);margin:18px 0 8px}
+.doc-content p{margin-bottom:12px}
+.doc-content a{color:var(--blue);text-decoration:none;font-weight:600}
+.doc-content a:hover{text-decoration:underline}
+.doc-content b{color:var(--text)}
+.doc-content ul,.doc-list{margin-left:22px;margin-bottom:16px}
+.doc-content li{margin-bottom:6px}
+.doc-content ul>li{list-style:disc}
+.doc-content code{background:#fff0f6;padding:2px 6px;border-radius:4px;font-family:var(--mono);font-size:11px;color:#d63384;border:1px solid #fcc2d7;font-weight:600;word-break:break-word}
+.callout{background:#eff3ff;border:1.5px solid #bac8ff;border-radius:9px;padding:9px 12px;margin:10px 0 14px;color:#364fc7}
+.muted{color:var(--muted)}
+.diagram{background-color:#f0f2f8;background-image:radial-gradient(#c8cee0 1px,transparent 1px);background-size:24px 24px;border:1.5px solid var(--border2);border-radius:9px;padding:10px;margin:10px 0 14px}
+svg{max-width:100%;height:auto;display:block}
+svg text{fill:#1971c2;font-family:var(--fn);font-size:13px;font-weight:700}
+svg .box{fill:#f0f8ff;stroke:#bde0fe;stroke-width:1.5}
+svg .box2{fill:#f0fffa;stroke:#96f2d7;stroke-width:1.5}
+svg .ln{stroke:var(--ctrl);stroke-width:2.2;fill:none}
+svg .sub{fill:var(--muted);font-size:11px;font-weight:500}
+.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:10px;font-weight:500;color:var(--muted);margin:6px 0 14px;background:var(--surface);border:1.5px solid var(--border2);padding:8px 13px;border-radius:13px;width:max-content;max-width:100%}
+.legend span::before{content:"";display:inline-block;width:18px;height:2.5px;border-radius:2px;margin-right:7px;vertical-align:middle}
+.legend .a::before{background:#495057}.legend .b::before{background:var(--blue)}
+.legend .c::before{background:var(--eth)}.legend .d::before{background:#ffa94d}
+@media (max-width:860px){
+  body{height:auto;overflow:auto}
+  .main{flex-direction:column;overflow:visible}
+  .sidebar{width:100%;max-height:30vh;border-right:0;border-bottom:1px solid var(--border2)}
+  .canvas-wrap{overflow:visible;padding:12px 8px 48px}
+  .doc-content{padding:16px}
+  .hint{display:none}
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">TF</div>
+  <h1>ThroughFocus_Viewer Help / 說明</h1>
+  <span class="badge v">public help</span>
+  <span class="hint">Usage · Architecture · 無示範媒體</span>
+</header>
+<div class="main">
+  <nav class="sidebar" aria-label="Contents">
+    <div class="props-panel">
+      <div class="psec">Contents / 目錄</div>
+      <a class="nav-link" href="#usage">Usage / 用法</a>
+      <a class="nav-link" href="#version">Version / 版本</a>
+      <a class="nav-link" href="#arch-viewer">Architecture / 架構</a>
+      <a class="nav-link" href="#open">Open images / 開啟影像</a>
+      <a class="nav-link" href="#layout">Layout / 版面</a>
+      <a class="nav-link" href="#analyze">Through-focus / 通焦預覽</a>
+      <a class="nav-link" href="#roi">ROI and export / ROI 與匯出</a>
+      <a class="nav-link" href="#keys">Shortcuts / 快捷鍵</a>
+    </div>
+  </nav>
+  <div class="canvas-wrap">
+    <div class="sheet">
+      <div class="doc-content">
+        <p class="doc-title">ThroughFocus_Viewer</p>
+        <p class="lead">Through-focus image ROI viewer. Display and measurement only — no wavefront reconstruction algorithms.<br>通焦影像 ROI 檢視器。僅顯示與量測——不含波前重建演算法。</p>
+        <div class="callout">This public Help covers <b>Usage</b> and <b>Architecture</b> only. It does not embed demo images or historical release notes.<br>本公開說明僅含<strong>用法</strong>與<strong>架構</strong>；不嵌入示範圖、不含歷史版本紀錄。</div>
+
+        <h2 id="usage">Usage / 用法</h2>
+        <p><b>ThroughFocus_Viewer</b> opens through-focus image stacks, draws ROIs, builds a Focus×Radial intensity preview, and exports Result / profile / preview data. Start with <code>run_throughfocus_viewer.bat [image|folder|*.bmp …]</code>. With no arguments the app opens its configured default folder (one <b>Group</b>).<br>
+        <b>ThroughFocus_Viewer</b> 可開啟通焦影像疊圖、繪製 ROI、建立 Focus×Radial 強度預覽，並匯出 Result／剖面／預覽資料。啟動：<code>run_throughfocus_viewer.bat [影像|資料夾|*.bmp …]</code>。無參數時開啟設定的預設資料夾（一個 <b>Group／圖集</b>）。</p>
+
+        <h3 id="arch-viewer">Architecture / 函式架構</h3>
+        <p class="muted">Module layers for the <code>viewer</code> package (display name <code>ThroughFocus_Viewer</code>). Reconstruction algorithms are out of scope.<br>
+        <code>viewer</code> 套件模組分層（顯示名稱 <code>ThroughFocus_Viewer</code>）。重建演算法不在範圍內。</p>
+        <div class="diagram" role="img" aria-label="ThroughFocus_Viewer architecture / 函式架構">
+<svg viewBox="0 0 920 540" xmlns="http://www.w3.org/2000/svg">
+  <rect class="box" x="280" y="12" width="360" height="56" rx="8"/>
+  <text x="460" y="34" text-anchor="middle">Entry / 啟動</text>
+  <text class="sub" x="460" y="52" text-anchor="middle">run_throughfocus_viewer.bat → python -m viewer</text>
+  <path class="ln" d="M460 68 L460 92"/>
+  <rect class="box" x="240" y="92" width="440" height="60" rx="8"/>
+  <text x="460" y="116" text-anchor="middle">gui.main_window</text>
+  <text class="sub" x="460" y="134" text-anchor="middle">主視窗・選單・Unit／Lang・Analyze・匯出</text>
+  <path class="ln" d="M300 152 L160 184"/>
+  <path class="ln" d="M460 152 L460 184"/>
+  <path class="ln" d="M620 152 L760 184"/>
+  <rect class="box2" x="40" y="184" width="240" height="76" rx="8"/>
+  <text x="160" y="208" text-anchor="middle">gui.image_view / roi_item</text>
+  <text class="sub" x="160" y="226" text-anchor="middle">主圖・畫 ROI</text>
+  <text class="sub" x="160" y="242" text-anchor="middle">旋轉／邊緣／偽彩</text>
+  <rect class="box2" x="320" y="184" width="280" height="76" rx="8"/>
+  <text x="460" y="208" text-anchor="middle">gui.image_list / tf_preview</text>
+  <text class="sub" x="460" y="226" text-anchor="middle">Groups・通焦預覽</text>
+  <text class="sub" x="460" y="242" text-anchor="middle">Contour／False Color・另存</text>
+  <rect class="box2" x="640" y="184" width="240" height="76" rx="8"/>
+  <text x="760" y="208" text-anchor="middle">gui.excel_export_dialog</text>
+  <text class="sub" x="760" y="226" text-anchor="middle">log_bridge</text>
+  <text class="sub" x="760" y="242" text-anchor="middle">匯出選項・Log → UI</text>
+  <path class="ln" d="M160 260 L160 292"/>
+  <path class="ln" d="M460 260 L460 292"/>
+  <path class="ln" d="M760 260 L760 292"/>
+  <rect class="box" x="40" y="292" width="240" height="92" rx="8"/>
+  <text x="160" y="316" text-anchor="middle">image_io / tf_stack</text>
+  <text class="sub" x="160" y="334" text-anchor="middle">讀圖・一層資料夾</text>
+  <text class="sub" x="160" y="350" text-anchor="middle">依 step／dz 檔名分組</text>
+  <text class="sub" x="160" y="366" text-anchor="middle">roi / roi_settings / profile</text>
+  <rect class="box" x="320" y="292" width="280" height="92" rx="8"/>
+  <text x="460" y="316" text-anchor="middle">tf_contour / contour_draw</text>
+  <text class="sub" x="460" y="334" text-anchor="middle">通焦圖・Unit 換算</text>
+  <text class="sub" x="460" y="350" text-anchor="middle">Bezier 等值線・強度表</text>
+  <text class="sub" x="460" y="366" text-anchor="middle">focus_align（質心對齊）</text>
+  <rect class="box" x="640" y="292" width="240" height="92" rx="8"/>
+  <text x="760" y="316" text-anchor="middle">result_export</text>
+  <text class="sub" x="760" y="334" text-anchor="middle">Result／ROI／TF xlsx</text>
+  <text class="sub" x="760" y="350" text-anchor="middle">嵌入預覽 PNG</text>
+  <text class="sub" x="760" y="366" text-anchor="middle">ui_lang / app_logger</text>
+  <path class="ln" d="M460 384 L460 416"/>
+  <rect class="box" x="200" y="416" width="520" height="60" rx="8" style="fill:#fff5f5;stroke:#ffc9c9"/>
+  <text x="460" y="440" text-anchor="middle" style="fill:#c92a2a">Out of scope / 不在範圍</text>
+  <text class="sub" x="460" y="458" text-anchor="middle" style="fill:#c92a2a">Wavefront reconstruction（線性／遺傳／深度學習）</text>
+</svg>
+        </div>
+        <div class="legend">
+          <span class="a">Shell / 協調層</span>
+          <span class="b">GUI</span>
+          <span class="c">Core / 核心庫</span>
+          <span class="d">Boundary / 邊界</span>
+        </div>
+
+        <h3 id="open">Open images / 開啟影像</h3>
+        <ul class="doc-list">
+          <li><b>File → Open Image(s)…</b>（可多選）、拖放檔案／資料夾，或 bat／命令列傳路徑。</li>
+          <li><b>File → Open Folder…</b>（<code>Ctrl+Shift+O</code>）：由資料夾建立一個 <b>Group／圖集</b>（標籤＝資料夾名；只掃一層）。</li>
+          <li>Formats / 格式：PNG／BMP／TIFF／JPEG。Folders are not scanned recursively / 資料夾不遞迴。</li>
+          <li>Loose files that share the same field and through-focus <code>step</code>/<code>dz</code> naming merge into one Group; others stay single-frame.<br>同一 Field 且通焦 <code>step</code>/<code>dz</code> 命名相近的散檔會合成一個 Group；其餘為單張。</li>
+        </ul>
+
+        <h3 id="layout">Layout / 版面</h3>
+        <ul class="doc-list">
+          <li>Top-left / 左上：<b>Auto／Manual</b>、<b>Analyze</b>、<b>X_Pixel</b>、<b>Y_Pixel</b>、<b>Z_Step</b>、共用 <b>Unit</b>（µm／nm），主圖 Preview：<b>False Color</b>／<b>Edge</b>（互斥，僅顯示）。</li>
+          <li>Left / 左側：中央影像＋通焦步階滑桿；下方 ROI 參數、Result 表、Log。</li>
+          <li>Right / 右側：<b>Groups／圖集</b>與 <b>Through-Focus／通焦預覽</b>（Focus×Radial；預設 False Color；Mode＝Contour／False Color）。</li>
+          <li>Multi-frame thumbnails use stacked-card cue (<code>×N</code>) / 多幀縮圖以疊層卡片示意。</li>
+          <li>Splitters and window geometry are restored / 分割與視窗幾何會記住。</li>
+          <li>Status bar / 狀態列：路徑、待命進度、Log 開關、游標 XY。</li>
+        </ul>
+
+        <h3 id="analyze">Through-focus preview / 通焦預覽（Analyze）</h3>
+        <ul class="doc-list">
+          <li><b>Auto</b>：ROI 或尺度參數變更後自動更新。</li>
+          <li><b>Manual</b>：按 <b>Analyze</b> 才重建。</li>
+          <li><b>False Color</b>（預設）：turbo 強度圖。<b>Contour</b>：灰階底圖＋等值線。</li>
+          <li><b>Snap to focus centroid／對齊合焦質心</b>：新建／拖曳結束／Analyze 時，將 ROI 中心對齊近零焦幀強度質心。</li>
+          <li>Focus axis / Focus 軸：檔名有 <code>dz</code> 則用之（換算到目前 Unit）；否則用 <code>Z_Step</code>。</li>
+          <li>Radial axis / Radial 軸：ROI 沿 u 剖面 × 像素尺度（含旋轉與 X／Y_Pixel）。</li>
+        </ul>
+
+        <h3 id="roi">ROI and export / ROI 與匯出</h3>
+        <ul class="doc-list">
+          <li>Draw mode 拖曳建立 ROI；Fixed size；Snap to focus centroid；CX／CY／W／H／Angle；Delete；Rotate 90°（<code>R</code>）。</li>
+          <li><b>ROI_Rota</b>：向心指引；統一旋轉；或 None／關閉。</li>
+          <li>ROIs are shared across focus steps in the same Group / 同一圖集內 ROI 跨步階共用；換步階只換顯示幀。</li>
+          <li>Result columns / Result 欄位：ROI_ID、CX、CY、W、H、Rota_Angle、ColorSpace、Max、Min、CalcTime、FolderName（無 MTF）。</li>
+          <li><b>Save／Load ROI Settings</b>（<code>Ctrl+S</code>／<code>Ctrl+Shift+S</code>）：CSV；儲存不覆寫。</li>
+          <li><b>Normalize</b>（預設開）：通焦強度峰值歸一。</li>
+          <li>Preview Aspect：Fixed Window／Physical。Axes 開／關。紅色 Focus 步階標線。Focus 刻度四等分。</li>
+          <li>Save preview / 另存預覽：右鍵或 <b>Save Image</b>；預設名 <code>[Folder]_ROIX_Real|Pixel</code>。</li>
+          <li><b>Export Excel</b>：Result／ROI_*／TF_ROI_*；單一檔或分檔；不覆寫。</li>
+        </ul>
+
+        <h2 id="version">Version / 版本</h2>
+        <p>App version appears in the window title (<code>ThroughFocus_Viewer v…</code>). This public Help does not include historical release notes.<br>
+        應用程式版號顯示於視窗標題（<code>ThroughFocus_Viewer v…</code>）。本公開說明不含歷史版本紀錄。</p>
+
+        <h3 id="keys">Shortcuts / 快捷鍵</h3>
+        <ul class="doc-list">
+          <li><code>Ctrl+O</code> open／開啟 · <code>Ctrl+E</code> Excel · <code>Ctrl+L</code> Log · <code>F</code> Fit · <code>D</code> Draw · <code>[</code>/<code>]</code> previous／next focus step · <code>F1</code> Help／說明</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

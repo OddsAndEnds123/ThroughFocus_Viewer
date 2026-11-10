@@ -1,0 +1,21 @@
+# ThroughFocus_Viewer — pip requirements (source install)
+# Python 3.10+ (recommended 3.12)
+#
+# Required by app code:
+#   PySide6-Essentials/shiboken6 — GUI
+#     (Essentials only: full PySide6 pulls WebEngine/Pdf with paths too long
+#      for default Windows MAX_PATH when env lives under Documents\...\99_Python)
+#   numpy — arrays
+#   Pillow — (optional helper; images via OpenCV)
+#   openpyxl — Excel export
+#   matplotlib — false-color / edge colormaps
+#   opencv-python-headless — image_io load/save (import cv2)
+#   scipy — profile / ndimage
+PySide6-Essentials>=6.6,<7
+shiboken6>=6.6,<7
+numpy>=1.26,<3
+Pillow>=10.0
+openpyxl>=3.1
+matplotlib>=3.8
+opencv-python-headless>=4.8
+scipy>=1.11
